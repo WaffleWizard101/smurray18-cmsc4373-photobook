@@ -36,3 +36,8 @@ document.forms.loginForm.onsubmit = function(e) {
    e.preventDefault(); // prevent form submission from reloading page
    console.log('Login form submitted', e.target.email.value, e.target.password.value)
 }
+
+//logout button
+document.getElementById('logoutButton').onclick = function(e) {
+   console.log('Logout button clicked');
+}
