@@ -6,9 +6,14 @@ export class Router {
    constructor(routes) {
       this.routes = routes;
       const path = window.location.pathname;
+      //listen to popstate event (when active history change event fires)
+      window.onpopstate = () => {
+         this.#loadRoute(window.location.pathname);
+      }
    }
 
    async navigate(path) {
+      window.history.pushState(null, null, path);
       await this.#loadRoute(path);
    }
 
