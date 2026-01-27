@@ -1,4 +1,4 @@
-import { HomeModel } from "../model/HomeModel";
+import { HomeModel } from "../model/HomeModel.js";
 
 export class HomeController {
    //Instance members/variables

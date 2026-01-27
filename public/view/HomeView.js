@@ -1,4 +1,4 @@
-import { AbstractView } from "./AbstractView";
+import { AbstractView } from "./AbstractView.js";
 
 export class HomeView extends AbstractView {
    //instance variables

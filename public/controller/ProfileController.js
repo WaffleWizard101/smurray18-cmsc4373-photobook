@@ -1,4 +1,4 @@
-import { ProfileModel } from "../model/ProfileModel";
+import { ProfileModel } from "../model/ProfileModel.js";
 
 export class ProfileController {
    //Instance members/variables
