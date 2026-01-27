@@ -30,12 +30,28 @@
             </li>
             <li class="nav-item">
               <a class="btn btn-outline-primary me-3" data-path="/profile">Profile</a>
-            </li> 
+            </li>
           </ul>
           <button id="logoutButton" class="btn btn-danger">Logout</button>
         </div>
       </div>
     </nav>
+  </div>
+
+  <div class="container">
+    <div id="loginDiv" class="card p-4 shadow">
+      <form name="loginForm">
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input name="email" type="email" class="form-control" placeholder="Enter email">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input name="password" type="password" class="form-control" placeholder="Enter password">
+        </div>
+        <button type="submit" class="btn btn-primary">Enter</button>
+      </form>
+    </div>
   </div>
 
   <!-- Single Page Application Root -->
