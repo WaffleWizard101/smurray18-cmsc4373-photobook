@@ -7,6 +7,7 @@ import {
 
 import { app } from "./firebase_core.js";
 import { router } from './app.js';
+import { glHomeModel } from './HomeController.js';
 
 const auth = getAuth(app);
 
@@ -58,5 +59,6 @@ onAuthStateChanged(auth, user => {
       spaRoot.classList.replace('d-block', 'd-none');
       router.currentView = null;
       spaRoot.innerHTML = '';
+      glHomeModel.clearNumberList();
    }
 });
