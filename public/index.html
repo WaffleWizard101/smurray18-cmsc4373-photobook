@@ -11,6 +11,12 @@
 </head>
 
 <body>
+  <!-- Spinning overlay as a loading indicator -->
+  <div id="spinnerOverlay" style="z-index: 1100"
+      class="d-none position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center">
+    <div class="spinner-border text-primary" role="status"
+        style="width:100px; height: 100px;"></div>
+  </div>
   <div class="container">
     <h1 id="appHeader" class="mt-3 bg-primary text-center text-white">App Header</h1>
   </div>
@@ -74,11 +80,6 @@
           <label class="form-label">Password</label>
           <input name="password" type="password" class="form-control" required minlength="6"
               placeholder="Enter password">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Confirm Password</label>
-          <input name="passwordConfirm" type="password" class="form-control" required minlength="6"
-              placeholder="Confirm password">
         </div>
         <button type="submit" class="btn btn-primary">Create</button>
       </form>
