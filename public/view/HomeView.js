@@ -1,4 +1,5 @@
 import { AbstractView } from "./AbstractView.js";
+import { currentUser } from "../controller/firebase_auth.js";
 
 export class HomeView extends AbstractView {
    //instance variables
@@ -10,6 +11,9 @@ export class HomeView extends AbstractView {
    }
 
    async onMount() {
+      if(!currentUser) {
+         this.parentElement.innerHTML = `<h1>Access Denied</h1>`
+      }
       console.log('HomeView.onMount() called');
    }
 
