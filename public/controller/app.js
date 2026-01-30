@@ -21,7 +21,7 @@ const routes = [
    }
 ];
 
-const router = new Router(routes);
+export const router = new Router(routes);
 router.navigate(window.location.pathname);
 
 const menuItems = document.querySelectorAll('a[data-path]');

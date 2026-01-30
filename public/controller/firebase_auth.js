@@ -6,6 +6,7 @@ import {
 } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js'
 
 import { app } from "./firebase_core.js";
+import { router } from './app.js';
 
 const auth = getAuth(app);
 
@@ -49,10 +50,13 @@ onAuthStateChanged(auth, user => {
       loginDiv.classList.replace('d-block', 'd-none');
       navMenu.classList.replace('d-none', 'd-block');
       spaRoot.classList.replace('d-none', 'd-block');
+      router.navigate(window.location.pathname);
    } else {
       console.log('AuthStateChanged: User logged out');
       loginDiv.classList.replace('d-none', 'd-block');
       navMenu.classList.replace('d-block', 'd-none');
       spaRoot.classList.replace('d-block', 'd-none');
+      router.currentView = null;
+      spaRoot.innerHTML = '';
    }
 });
