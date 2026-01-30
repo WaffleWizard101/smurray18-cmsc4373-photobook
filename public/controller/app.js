@@ -60,3 +60,13 @@ document.getElementById('logoutButton').onclick = async function(e) {
       alert('Sign out failed: ' + errorCode.code + ' ' + error.message);
    }
 }
+
+document.getElementById('goToCreateAccount').onclick = function(e) {
+   document.getElementById('loginDiv').classList.replace('d-block', 'd-none');
+   document.getElementById('createAccountDiv').classList.replace('d-none', 'd-block');
+}
+
+document.getElementById('goToLogin').onclick = function(e) {
+   document.getElementById('createAccountDiv').classList.replace('d-block', 'd-none');
+   document.getElementById('loginDiv').classList.replace('d-none', 'd-block');
+}

@@ -42,7 +42,6 @@ export async function logoutFirebase() {
 
 onAuthStateChanged(auth, user => {
    currentUser = user;
-
    const loginDiv = document.getElementById('loginDiv');
    const navMenu = document.getElementById('navMenuContainer');
    const spaRoot = document.getElementById('spaRoot');
@@ -59,6 +58,6 @@ onAuthStateChanged(auth, user => {
       spaRoot.classList.replace('d-block', 'd-none');
       router.currentView = null;
       spaRoot.innerHTML = '';
-      glHomeModel.clearNumberList();
+      glHomeModel.reset();
    }
 });

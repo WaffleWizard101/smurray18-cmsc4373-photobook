@@ -40,6 +40,7 @@
 
   <div class="container">
     <div id="loginDiv" class="card p-4 shadow d-block">
+      <h1>Login</h1>
       <form name="loginForm">
         <div class="mb-3">
           <label class="form-label">Email</label>
@@ -53,6 +54,35 @@
         </div>
         <button type="submit" class="btn btn-primary">Enter</button>
       </form>
+      <button id="goToCreateAccount" class="btn btn-outline-danger mt-3">Go to Create Account</button>
+    </div>
+    
+    <div id="createAccountDiv" class="card p-4 shadow d-none">
+      <h1>Create a New Account</h1>
+      <form name="createAccountForm">
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input name="email" type="email" class="form-control" required
+              placeholder="Enter email">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Confirm Email</label>
+          <input name="emailConfirm" type="email" class="form-control" required
+              placeholder="Confirm email">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input name="password" type="password" class="form-control" required minlength="6"
+              placeholder="Enter password">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Confirm Password</label>
+          <input name="passwordConfirm" type="password" class="form-control" required minlength="6"
+              placeholder="Confirm password">
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+      </form>
+      <button id="goToLogin" class="btn btn-outline-danger mt-3">Go to Login Form</button>
     </div>
   </div>
 
