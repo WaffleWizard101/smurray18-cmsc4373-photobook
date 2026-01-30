@@ -1,4 +1,5 @@
 import {
+   createUserWithEmailAndPassword,
    getAuth,
    onAuthStateChanged,
    signInWithEmailAndPassword,
@@ -61,3 +62,7 @@ onAuthStateChanged(auth, user => {
       glHomeModel.reset();
    }
 });
+
+export async function createAccount(email, password) {
+   await createUserWithEmailAndPassword(auth, email, password);
+}

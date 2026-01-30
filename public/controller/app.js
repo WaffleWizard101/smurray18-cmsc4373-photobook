@@ -3,7 +3,7 @@ import { ProfileView } from "../view/ProfileView.js";
 import { HomeController } from "./HomeController.js";
 import { ProfileController } from "./ProfileController.js";
 import { Router } from "./Router.js";
-import { loginFirebase, logoutFirebase } from "./firebase_auth.js"
+import { createAccount, loginFirebase, logoutFirebase } from "./firebase_auth.js"
 
 document.getElementById('appHeader').textContent = 'Cloud Web Template';
 document.title = 'App Template';
@@ -58,6 +58,28 @@ document.getElementById('logoutButton').onclick = async function(e) {
       const errorCode = e.code;
       const errorMessage = e.message;
       alert('Sign out failed: ' + errorCode.code + ' ' + error.message);
+   }
+}
+
+//Create account event
+document.forms.createAccountForm.onsubmit = async function(e) {
+   e.preventDefault(); // prevent form submission from reloading page
+   const email = e.target.email.value
+   const emailConfirm = e.target.emailConfirm.value;
+   const password = e.target.password.value;
+
+   if(email != emailConfirm) {
+      alert('Emails do not match!');
+      return;
+   }
+   try {
+      await createAccount(email, password);
+      document.getElementById('createAccountDiv').classList.replace('d-block', 'd-none');
+   } catch (e) {
+      console.error('Error creating account', e);
+      const errorCode = e.code;
+      const errorMessage = e.message;
+      alert('Account creation failed: ' + errorCode + ' ' + errorMessage);
    }
 }
 
