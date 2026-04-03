@@ -10,4 +10,8 @@ export class HomeModel {
    setPhotoNoteList(list) {
       this.photoNoteList = list;
    }
+
+   prependPhotoNoteList(photoNote) {
+      this.photoNoteList.unshift(photoNote);
+   }
 }

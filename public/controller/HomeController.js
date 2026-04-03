@@ -80,7 +80,8 @@ export class HomeController {
          return;
       }
 
-      console.log('photo note saved!');
+      this.model.prependPhotoNoteList(photoNote);
+      this.view.render();
    }
 
    async onLoadPhotoNoteList() {
