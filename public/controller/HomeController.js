@@ -115,12 +115,37 @@ export class HomeController {
       form.sharedWith.value = photoNote.sharedWith;
       const img = form.querySelector('img');
       img.src = photoNote.imageURL;
+      form.onsubmit = function(e) {
+         e.preventDefault();
+         this.onSubmitEditForm(e, photoNote);
+      }.bind(this);
 
       // Display the modal
       const modal = bootstrap.Modal.getOrCreateInstance(
          document.getElementById('modal-edit')
       );
       modal.show();
+   }
+
+   onSubmitEditForm(e, photoNote) {
+      const form = document.forms.formEdit;
+      const r = PhotoNote.validateSharedWith(form.sharedWith.value);
+      //Validate sharedWith
+      if (r != '' ) {
+         alert(`ShareWith: Invalid email address: ${r}`);
+         return;
+      }
+      const caption = form.caption.value;
+      const description = form.description.value;
+      const sharedWith = PhotoNote.parseSharedWith(form.sharedWith.value);
+      //Verify if any changes were made
+      if(caption == photoNote.caption && description == photoNote.description &&
+         sharedWith.sort().join(';') == photoNote.sharedWith.sort().join(';')) {
+            //No changes => dismiss the modal.
+            console.log('No change.');
+            document.getElementById('modal-edit-close-button').click();
+            return;
+         }
    }
 
    onRightClickCard(e) {
