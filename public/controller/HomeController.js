@@ -3,6 +3,7 @@ import { uploadImageToCloudStorage } from "./cloudstorage_controller.js";
 import { currentUser } from "./firebase_auth.js";
 import { PhotoNote } from "../model/PhotoNote.js";
 import { addPhotoNoteToFirestore } from "./firestore_controller.js";
+import { startSpinner, stopSpinner } from "../view/util.js";
 
 export const glHomeModel = new HomeModel();
 
@@ -42,12 +43,14 @@ export class HomeController {
          alert(`Share With: Invalid email address: ${r}`);
          return;
       }
+      startSpinner();
       let imageName, imageURL;
       try {
          const r = await uploadImageToCloudStorage(this.model.imageFile);
          imageName = r.imageName;
          imageURL = r.imageURL;
       } catch (e) {
+         stopSpinner();
          console.error(e);
          alert('Error uploading image.');
          return;
@@ -68,10 +71,15 @@ export class HomeController {
       try {
          const docId = await addPhotoNoteToFirestore(photoNote);
          photoNote.set_docId(docId);
+         document.querySelector('button.btn-close').click();
+         stopSpinner();
       } catch (e) {
+         stopSpinner();
          console.error(e);
          alert('Error adding photo note to Firestore');
          return;
       }
+
+      console.log('photo note saved!');
    }
 }
