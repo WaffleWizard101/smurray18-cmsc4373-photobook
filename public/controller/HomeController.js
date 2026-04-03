@@ -2,7 +2,7 @@ import { HomeModel } from "../model/HomeModel.js";
 import { uploadImageToCloudStorage } from "./cloudstorage_controller.js";
 import { currentUser } from "./firebase_auth.js";
 import { PhotoNote } from "../model/PhotoNote.js";
-import { addPhotoNoteToFirestore } from "./firestore_controller.js";
+import { addPhotoNoteToFirestore, getPhotoNoteListFromFirestore } from "./firestore_controller.js";
 import { startSpinner, stopSpinner } from "../view/util.js";
 
 export const glHomeModel = new HomeModel();
@@ -13,7 +13,7 @@ export class HomeController {
    view = null;
 
    constructor() {
-      this.model = new HomeModel;
+      this.model = new HomeModel();
       this.onChangeImageFile = this.onChangeImageFile.bind(this);
       this.onSubmitAddNew = this.onSubmitAddNew.bind(this);
    }
@@ -81,5 +81,19 @@ export class HomeController {
       }
 
       console.log('photo note saved!');
+   }
+
+   async onLoadPhotoNoteList() {
+      startSpinner();
+      try {
+         const photoNoteList = await getPhotoNoteListFromFirestore(currentUser.uid);
+         this.model.setPhotoNoteList(photoNoteList);
+         stopSpinner();
+      } catch (e) {
+         stopSpinner();
+         console.error(e);
+         this.model.setPhotoNoteList([]);
+         alert('Error loading photo notes');
+      }
    }
 }

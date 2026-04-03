@@ -6,4 +6,8 @@ export class HomeModel {
       this.photoNoteList = [];
       this.imageFile = null;
    }
+
+   setPhotoNoteList(list) {
+      this.photoNoteList = list;
+   }
 }

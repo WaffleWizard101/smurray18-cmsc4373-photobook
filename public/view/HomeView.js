@@ -13,8 +13,11 @@ export class HomeView extends AbstractView {
    async onMount() {
       if(!currentUser) {
          this.parentElement.innerHTML = `<h1>Access Denied</h1>`
+         return;
       }
-      console.log('HomeView.onMount() called');
+      
+      await this.controller.onLoadPhotoNoteList();
+      console.log('HomeView.onMount() called', this.controller.model.photoNoteList);
    }
 
    async updateView() {
@@ -32,6 +35,6 @@ export class HomeView extends AbstractView {
    }
 
    async onLeave() {
-      console.log('HomeView.onLeave() is called')
+      console.log('HomeView.onLeave() is called');
    }
 }
