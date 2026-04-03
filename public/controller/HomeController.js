@@ -16,6 +16,8 @@ export class HomeController {
       this.model = new HomeModel();
       this.onChangeImageFile = this.onChangeImageFile.bind(this);
       this.onSubmitAddNew = this.onSubmitAddNew.bind(this);
+      this.onClickCard = this.onClickCard.bind(this);
+      this.onRightClickCard = this.onRightClickCard.bind(this);
    }
 
    setView(view) {
@@ -96,5 +98,18 @@ export class HomeController {
          this.model.setPhotoNoteList([]);
          alert('Error loading photo notes');
       }
+   }
+
+   onClickCard(e) {
+      const card = e.currentTarget; //Element where the event listener was attached, instead of its child.
+      const docId = card.id;
+      console.log('onClickCard', docId);
+   }
+
+   onRightClickCard(e) {
+      e.preventDefault();     //Prevent context menu from appearing.
+      const card = e.currentTarget;
+      const docId = card.id;
+      console.log('onRightClickCard', docId)
    }
 }

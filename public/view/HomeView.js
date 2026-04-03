@@ -55,7 +55,7 @@ export class HomeView extends AbstractView {
       // card.classList.add('col');
       card.className = 'col';
       card.innerHTML = `
-         <div class="card" style="width: 18rem;">
+         <div id="${photoNote.docId}" class="card card-photonote" style="width: 18rem;">
             <img src="${photoNote.imageURL}" class="card-img-top" alt="...">
             <div class="card-body">
                <h5 class="card-title">${photoNote.caption}</h5>
@@ -75,6 +75,10 @@ export class HomeView extends AbstractView {
    attachEvents() {
       document.getElementById('image-file').onchange = this.controller.onChangeImageFile;
       document.forms.formAddNew.onsubmit = this.controller.onSubmitAddNew
+      document.querySelectorAll('.card-photonote').forEach(card => {
+         card.onclick = this.controller.onClickCard;
+         card.oncontextmenu = this.controller.onRightClickCard;
+      })
    }
 
    async onLeave() {
