@@ -9,17 +9,24 @@ export class HomeController {
 
    constructor() {
       this.model = new HomeModel;
-      this.onClickGenerateDataButton = this.onClickGenerateDataButton.bind(this);
+      this.onChangeImageFile = this.onChangeImageFile.bind(this);
    }
 
    setView(view) {
       this.view = view;
    }
 
-   onClickGenerateDataButton() {
-      //Random number between 1 and 100
-      const randomNumber = Math.floor(Math.random() * 100) + 1;
-      this.model.addNumber(randomNumber);
-      this.view.render();
+   onChangeImageFile(e) {
+      const imgPreview = document.getElementById('image-preview');
+      this.model.imageFile = e.target.files[0];
+      if(!this.model.imageFile) {
+         imgPreview.src = '';
+         return;
+      }
+      const reader = new FileReader();
+      reader.readAsDataURL(this.model.imageFile);
+      reader.onload = function() {
+         imgPreview.src = reader.result;
+      }
    }
 }

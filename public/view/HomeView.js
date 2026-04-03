@@ -27,9 +27,7 @@ export class HomeView extends AbstractView {
    }
 
    attachEvents() {
-      //console.log('HomeView.attachEvents() is called');
-      const generateButton = document.getElementById('generateDataButton');
-      generateButton.onclick = this.controller.onClickGenerateDataButton;
+      document.getElementById('image-file').onchange = this.controller.onChangeImageFile;
    }
 
    async onLeave() {
