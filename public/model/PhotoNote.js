@@ -15,6 +15,10 @@ export class PhotoNote {
       this.sharedWith = data['sharedWith'] || [];
    }
 
+   set_docId(id) {
+      this.docId = id;
+   }
+
    toFirestore() {
       return {
          caption: this.caption,

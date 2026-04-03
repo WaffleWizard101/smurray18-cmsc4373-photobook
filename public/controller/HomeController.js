@@ -2,6 +2,7 @@ import { HomeModel } from "../model/HomeModel.js";
 import { uploadImageToCloudStorage } from "./cloudstorage_controller.js";
 import { currentUser } from "./firebase_auth.js";
 import { PhotoNote } from "../model/PhotoNote.js";
+import { addPhotoNoteToFirestore } from "./firestore_controller.js";
 
 export const glHomeModel = new HomeModel();
 
@@ -63,6 +64,14 @@ export class HomeController {
          caption, description, uid, createdBy, imageName,
          imageURL, timestamp, sharedWith
       });
-      console.log(photoNote);
+
+      try {
+         const docId = await addPhotoNoteToFirestore(photoNote);
+         photoNote.set_docId(docId);
+      } catch (e) {
+         console.error(e);
+         alert('Error adding photo note to Firestore');
+         return;
+      }
    }
 }
