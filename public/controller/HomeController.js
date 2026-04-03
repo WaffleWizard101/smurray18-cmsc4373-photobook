@@ -49,7 +49,7 @@ export class HomeController {
       const form = e.target;
       const caption = form.caption.value;
       const description = form.description.value;
-      const sharedWith = form.sharedWith.value;
+      const sharedWith = PhotoNote.parseSharedWith(form.sharedWith.value);
       const uid = currentUser.uid;
       const createdBy = currentUser.email;
       const timestamp = Date.now();

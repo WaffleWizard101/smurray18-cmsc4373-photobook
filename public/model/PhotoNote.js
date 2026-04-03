@@ -4,14 +4,35 @@ export class PhotoNote {
    imageName; imageURL; timestamp; sharedWith; docId;
 
    constructor(data) {
-      if(!data) return;
+      if (!data) return;
       this.caption = data.caption
       this.description = data.description
       this.uid = data.uid;
       this.createdBy = data.createdBy;
-      this.imageName = data.imageName
+      this.imageName = data.imageName;
       this.imageURL = data.imageURL;
       this.timestamp = data.timestamp;
       this.sharedWith = data['sharedWith'] || [];
+   }
+
+   toFirestore() {
+      return {
+         caption: this.caption,
+         description: this.description,
+         uid: this.uid,
+         createdBy: this.createdBy,
+         imageName: this.imageName,
+         imageURL: this.imageURL,
+         timestamp: this.timestamp,
+         sharedWith: this.sharedWith
+      }
+   }
+
+   static parseSharedWith(value) {
+      if(!value) return [];
+      const str = value.trim();
+      const emails = str.split(/[,|;| ]/).map(e => e.trim())
+                        .filter(e => e.length > 0);
+      return emails;
    }
 }
