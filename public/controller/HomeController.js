@@ -1,8 +1,8 @@
 import { HomeModel } from "../model/HomeModel.js";
-import { uploadImageToCloudStorage } from "./cloudstorage_controller.js";
+import { deleteImageFromCloudStorage, uploadImageToCloudStorage } from "./cloudstorage_controller.js";
 import { currentUser } from "./firebase_auth.js";
 import { PhotoNote } from "../model/PhotoNote.js";
-import { addPhotoNoteToFirestore, getPhotoNoteListFromFirestore } from "./firestore_controller.js";
+import { addPhotoNoteToFirestore, deletePhotoNoteInFirestore, getPhotoNoteListFromFirestore, updatePhotoNoteInFirestore } from "./firestore_controller.js";
 import { startSpinner, stopSpinner } from "../view/util.js";
 
 export const glHomeModel = new HomeModel();
@@ -127,7 +127,7 @@ export class HomeController {
       modal.show();
    }
 
-   onSubmitEditForm(e, photoNote) {
+   async onSubmitEditForm(e, photoNote) {
       const form = document.forms.formEdit;
       const r = PhotoNote.validateSharedWith(form.sharedWith.value);
       //Validate sharedWith
@@ -141,17 +141,58 @@ export class HomeController {
       //Verify if any changes were made
       if(caption == photoNote.caption && description == photoNote.description &&
          sharedWith.sort().join(';') == photoNote.sharedWith.sort().join(';')) {
-            //No changes => dismiss the modal.
-            console.log('No change.');
-            document.getElementById('modal-edit-close-button').click();
-            return;
-         }
+         //No changes => dismiss the modal.
+         console.log('No change.');
+         document.getElementById('modal-edit-close-button').click();
+         return;
+      }
+      
+      const update = { caption, description, sharedWith,
+         timestamp: Date.now() };
+      startSpinner();
+      try {
+         await updatePhotoNoteInFirestore(photoNote.docId, update);
+         this.model.updatePhotoNoteList(photoNote, update);
+         this.model.orderPhotoNoteListByTimestamp();
+         // Dismiss modal
+         document.getElementById('modal-edit-close-button').click();
+         this.view.render();
+         stopSpinner();
+      } catch (e) {
+         stopSpinner();
+         console.error(e);
+         alert('Error updating photo note');
+         return;
+      }
    }
 
-   onRightClickCard(e) {
+   //Delete photonote
+   async onRightClickCard(e) {
       e.preventDefault();     //Prevent context menu from appearing.
       const card = e.currentTarget;
       const docId = card.id;
       console.log('onRightClickCard', docId)
+      const photoNote = this.model.getPhotoNoteByDocId(docId);
+      if (!photoNote) {
+         console.error('onRightClickCard: photoNote not defined', docId);
+         return;
+      }
+      //Confirm delete
+      if(!confirm('Delete this photo note?')) {
+         return; //Cancel delete
+      }
+      startSpinner();
+      try {
+         await deletePhotoNoteInFirestore(photoNote.docId);
+         this.model.removePhotoNoteByDocId(photoNote.docId);
+         await deleteImageFromCloudStorage(photoNote.imageName);
+         stopSpinner();
+         this.view.render();
+      } catch (e) {
+         stopSpinner(0);
+         console.error(e);
+         alert('Error deleting photo note');
+         return;
+      }
    }
 }

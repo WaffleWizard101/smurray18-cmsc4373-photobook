@@ -1,6 +1,9 @@
 import {
    addDoc,
+   doc,
    getDocs,
+   updateDoc,
+   deleteDoc,
    getFirestore,
    collection,
    orderBy,
@@ -34,4 +37,17 @@ export async function getPhotoNoteListFromFirestore(uid) {
       photoNoteList.push(p);
    });
    return photoNoteList;
+}
+
+export async function updatePhotoNoteInFirestore(docId, update) {
+   // update = {key1: value1, key2: value2, ...} 
+   const collRef = collection(db, PHOTONOTE_COLLECTION);
+   const docRef = doc(collRef, docId);
+   await updateDoc(docRef, update);
+}
+
+export async function deletePhotoNoteInFirestore(docId) {
+   const collRef = collection(db, PHOTONOTE_COLLECTION);
+   const docRef = doc(collRef, docId);
+   await deleteDoc(docRef);
 }

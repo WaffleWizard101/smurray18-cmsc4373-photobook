@@ -1,4 +1,5 @@
 import {
+   deleteObject,
    getDownloadURL,
    getStorage,
    ref,
@@ -20,4 +21,10 @@ export async function uploadImageToCloudStorage(imageFile) {
    const snapShot = await uploadBytes(storageRef, imageFile);
    const imageURL = await getDownloadURL(snapShot.ref);
    return {imageName, imageURL};
+}
+
+export async function deleteImageFromCloudStorage(imageName) {
+   const imagePath = `${IMAGE_FOLDER}/${currentUser.uid}/${imageName}`;
+   const fileRef = ref(storage, imagePath);
+   await deleteObject(fileRef);
 }
