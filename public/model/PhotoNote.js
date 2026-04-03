@@ -42,8 +42,8 @@ export class PhotoNote {
       const emailList = PhotoNote.parseSharedWith(str);
       let invalidMessage = '';
       for (let i = 0; i < emailList.length; i++) {
-         //NN@uco.com ==> valid email
-         if (!(/^[0-9]+@uco.com/
+         //Accept only valid uco emails
+         if (!(/^[0-9A-Za-z]+@uco.com$/
                .test(emailList[i])
             )) {
             invalidMessage += `${emailList[i]} `;
