@@ -35,4 +35,20 @@ export class PhotoNote {
                         .filter(e => e.length > 0);
       return emails;
    }
+
+   static validateSharedWith(value) {
+      const str = value.trim();
+      if (str.length === 0) return '';
+      const emailList = PhotoNote.parseSharedWith(str);
+      let invalidMessage = '';
+      for (let i = 0; i < emailList.length; i++) {
+         //NN@uco.com ==> valid email
+         if (!(/^[0-9]+@uco.com/
+               .test(emailList[i])
+            )) {
+            invalidMessage += `${emailList[i]} `;
+         }
+      }
+      return invalidMessage.trim();
+   }
 }

@@ -36,6 +36,11 @@ export class HomeController {
 
    async onSubmitAddNew(e) {
       e.preventDefault();
+      const r = PhotoNote.validateSharedWith(e.target.sharedWith.value);
+      if(r != '') {
+         alert(`Share With: Invalid email address: ${r}`);
+         return;
+      }
       let imageName, imageURL;
       try {
          const r = await uploadImageToCloudStorage(this.model.imageFile);
