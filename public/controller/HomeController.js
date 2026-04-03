@@ -189,7 +189,7 @@ export class HomeController {
          stopSpinner();
          this.view.render();
       } catch (e) {
-         stopSpinner(0);
+         stopSpinner();
          console.error(e);
          alert('Error deleting photo note');
          return;
