@@ -2,7 +2,7 @@
    Add New PhotoNote
 </button>
 
-<!-- Modal -->
+<!-- Creation Modal -->
 <div class="modal fade" id="modal-create" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
    aria-labelledby="modal-create-label" aria-hidden="true">
    <div class="modal-dialog">
@@ -32,6 +32,44 @@
                </div>
                <div>
                   <button type="submit" class="btn btn-outline-primary">Save</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+
+<!-- Editing Modal -->
+<div class="modal fade" id="modal-edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+   aria-labelledby="modal-edit-label" aria-hidden="true">
+   <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modal-edit-label">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+            <form name="formEdit">
+               <div class="mb-3">
+                  <div class="alert alert-warning" role="alert">
+                     <small>Image for browsing only. To change the image, delete this photo and create a new one.</small>
+                     <img src="" height="400">
+                  </div>
+               </div>
+               <div class="mb-3">
+                  <input type="text" required minlength="3" class="form-control" name="caption"
+                     placeholder="Enter a caption for the photo">
+               </div>
+               <div class="mb-3">
+                  <textarea class="form-control" name="description" rows="10"
+                     placeholder="Enter description"></textarea>
+               </div>
+               <div class="mb-3">
+                  <input type="text" name="sharedWith" class="form-control"
+                     placeholder="Share with (optional)">
+               </div>
+               <div>
+                  <button type="submit" class="btn btn-outline-danger">Update</button>
                </div>
             </form>
          </div>

@@ -14,4 +14,8 @@ export class HomeModel {
    prependPhotoNoteList(photoNote) {
       this.photoNoteList.unshift(photoNote);
    }
+
+   getPhotoNoteByDocId(docId) {
+      return this.photoNoteList.find(photoNote => photoNote.docId === docId );
+   }
 }

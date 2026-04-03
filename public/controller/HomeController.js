@@ -103,7 +103,24 @@ export class HomeController {
    onClickCard(e) {
       const card = e.currentTarget; //Element where the event listener was attached, instead of its child.
       const docId = card.id;
-      console.log('onClickCard', docId);
+      const photoNote = this.model.getPhotoNoteByDocId(docId);
+      if(!photoNote) {
+         console.error('onClickCard: photoNote not found', error);
+         return;
+      }
+      //Display photoNore in the edit modal
+      const form = document.forms.formEdit;
+      form.caption.value = photoNote.caption;
+      form.description.value = photoNote.description;
+      form.sharedWith.value = photoNote.sharedWith;
+      const img = form.querySelector('img');
+      img.src = photoNote.imageURL;
+
+      // Display the modal
+      const modal = bootstrap.Modal.getOrCreateInstance(
+         document.getElementById('modal-edit')
+      );
+      modal.show();
    }
 
    onRightClickCard(e) {
